@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.javaDTO.demoDTO.Entity.Employee;
 import com.javaDTO.demoDTO.Repository.EmployeeRepository;
+import com.javaDTO.demoDTO.dto.RequestDTO;
+import com.javaDTO.demoDTO.dto.RespondDTO;
 
 @Service 
 public class EmployeeService {
@@ -16,9 +18,14 @@ public class EmployeeService {
         this.employeeRepository = employeeRepository;
     }
 
-    public ResponseEntity<String> createEmployee(Employee emp) {
-        employeeRepository.save(emp);
-        return ResponseEntity.ok("Employee created successfully");
+    public RespondDTO createEmployee(RequestDTO empDTO) {
+        Employee employee = mapToEntity(empDTO);
+
+        employee.setCreatedAt(java.time.LocalDateTime.now());
+        employee.setUpdatedAt(java.time.LocalDateTime.now());
+
+        Employee employeeResp = employeeRepository.save(employee);
+        return mapToDTO(employeeResp);
     }
 
     public List<Employee> getAllEmployees() {
@@ -33,5 +40,25 @@ public class EmployeeService {
         employeeRepository.deleteById(id);
         return ResponseEntity.ok("Employee deleted successfully");
     }
-    
+
+    public Employee mapToEntity(RequestDTO empDTO) {
+        Employee employee = new Employee();
+        employee.setName(empDTO.getName());
+        employee.setBranch(empDTO.getBranch());
+        employee.setEmail(empDTO.getEmail());
+        return employee;
+    }
+
+    public RespondDTO mapToDTO(Employee employee) {
+        RespondDTO empDTO = new RespondDTO();
+        empDTO.setId(employee.getId());
+        empDTO.setName(employee.getName());
+        empDTO.setBranch(employee.getBranch());
+        empDTO.setEmail(employee.getEmail());
+        empDTO.setMessage("Employee saved successfully");
+        empDTO.setCreatedAt(employee.getCreatedAt());
+        empDTO.setUpdatedAt(employee.getUpdatedAt());
+        return empDTO;
+    }
+
 }

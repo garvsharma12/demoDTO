@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.javaDTO.demoDTO.Entity.Employee;
 import com.javaDTO.demoDTO.Service.EmployeeService;
+import com.javaDTO.demoDTO.dto.RequestDTO;
+import com.javaDTO.demoDTO.dto.RespondDTO;
 
 import java.util.List;
 
@@ -27,9 +29,9 @@ public class EmployeeController {
 
     //create a new Employee
     @PostMapping("create")
-    public ResponseEntity<String> createEmployee(@RequestBody Employee emp) {
-        employeeService.createEmployee(emp);
-        return ResponseEntity.ok("Employee created successfully");
+    public ResponseEntity<RespondDTO> createEmployee(@RequestBody RequestDTO empRequestDTO) {
+        RespondDTO employeeResp = employeeService.createEmployee(empRequestDTO);
+        return ResponseEntity.ok(employeeResp);
     }
 
     // get all employees

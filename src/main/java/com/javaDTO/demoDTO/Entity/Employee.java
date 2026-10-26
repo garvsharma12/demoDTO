@@ -1,5 +1,7 @@
 package com.javaDTO.demoDTO.Entity;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -15,6 +17,8 @@ public class Employee {
     private String name;
     private String branch;
     private String email;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     public void setId(Long id) {
         this.id = id;
@@ -42,5 +46,18 @@ public class Employee {
     }
     public String getEmail() {
         return email;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 }
