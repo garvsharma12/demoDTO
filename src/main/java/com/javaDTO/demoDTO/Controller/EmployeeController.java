@@ -8,6 +8,8 @@ import com.javaDTO.demoDTO.Service.EmployeeService;
 import com.javaDTO.demoDTO.dto.RequestDTO;
 import com.javaDTO.demoDTO.dto.RespondDTO;
 
+import jakarta.validation.Valid;
+
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -29,7 +31,7 @@ public class EmployeeController {
 
     //create a new Employee
     @PostMapping("create")
-    public ResponseEntity<RespondDTO> createEmployee(@RequestBody RequestDTO empRequestDTO) {
+    public ResponseEntity<RespondDTO> createEmployee(@Valid @RequestBody RequestDTO empRequestDTO) {
         RespondDTO employeeResp = employeeService.createEmployee(empRequestDTO);
         return ResponseEntity.ok(employeeResp);
     }
